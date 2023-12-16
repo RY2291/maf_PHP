@@ -1,8 +1,27 @@
 <?php 
 require_once 'config.php';
+
+
+// Library
+require_once SOURCE_BASE . 'libs/helper.php';
+require_once SOURCE_BASE . 'libs/auth.php';
+
+// Model
+require_once SOURCE_BASE . 'models/user.model.php';
+
+// DB
+require_once SOURCE_BASE . 'db/datasource.php';
+require_once SOURCE_BASE . 'db/user.query.php';
+
+session_start();
 require_once SOURCE_BASE . 'partials/header.php';
 
-$rpath = str_replace(BASE_URL, '', $_SERVER['REQUEST_URI']);
+use db\UserQuery;
+$result = UserQuery::fetchById('test');
+
+// var_dump($result);
+
+$rpath = str_replace(BASE_URL, '', CURRENT_URI);
 $method = strtolower($_SERVER['REQUEST_METHOD']);
 
 route($rpath, $method);
