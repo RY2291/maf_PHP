@@ -20,7 +20,24 @@ class Auth{
     } else {
       echo 'not find user' . "<br>";
     }
+
+    return $is_success;
+  }
+
+  public static function regist($user){
+    $is_success = false;
     
+    $exists_user = UserQuery::fetchById($user->id);
+
+    if(!empty($exists_user)){
+      echo 'already user';
+      
+      return false;
+    }
+
+    $is_success = UserQuery::insert($user);
+
+
     return $is_success;
   }
 
