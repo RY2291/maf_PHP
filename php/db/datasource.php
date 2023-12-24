@@ -30,7 +30,7 @@ class DataSource {
 
     public function execute($sql = "", $params = []) {
         $this->executeSql($sql, $params);
-        echo $sql, $params;
+
         return  $this->sqlResult;
     }
 
