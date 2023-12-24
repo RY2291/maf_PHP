@@ -1,6 +1,6 @@
 <?php 
 
-use model\abstract;
+namespace model\abstractModel;
 
 abstract class AbstractModel{
 
@@ -9,10 +9,10 @@ abstract class AbstractModel{
 	public static function setSession($val){
 
 		if(empty(static::$SESSION_NAME)){
-			throw new Error('$SESSION_NAMEを設定してください');
-		}
+			throw new \Exception('$SESSION_NAMEを設定してください');
 
-		$_SESSION[static::$SESSION_NAME] = $val;
+		}
+		return $_SESSION[static::$SESSION_NAME] = $val;
 	}
 
 	public static function getSession(){
@@ -23,5 +23,14 @@ abstract class AbstractModel{
 	public static function clearSession(){
 
 	  return static::setSession(null);
+	}
+
+	public static function getSessionAndFlush()
+	{
+		try {
+			return static::getSession();
+		} finally {
+			static::clearSession();
+		}
 	}
 }

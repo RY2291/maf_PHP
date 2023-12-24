@@ -1,7 +1,7 @@
 <?php 
 namespace model;
 
-use AbstractModel;
+use model\abstractModel\AbstractModel;
 
 class UserModel extends AbstractModel{
   public string $id;
