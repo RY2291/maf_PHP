@@ -35,13 +35,16 @@ class Auth{
   public static function regist($user)
   {
     try {
+      if(!$user->isValidateId()){
+        return false;
+      }
       $is_success = false;
-    
+
       $exists_user = UserQuery::fetchById($user->id);
 
       if(!empty($exists_user)){
         echo 'already user';
-        
+
         return false;
       }
 
@@ -68,7 +71,7 @@ class Auth{
       UserModel::clearSession();
       Msg::push(Msg::ERROR, 'エラーが発生しました。もう一度ログインしてください');
       Msg::push(Msg::DEBUG, $e->getMessage());
-      
+
       return false;
     }
 

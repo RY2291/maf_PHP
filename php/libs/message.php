@@ -29,7 +29,7 @@ class Msg extends AbstractModel
   public static function flush()
   {
     try {
-      $msgs_with_type = static::getSession() ?? [];
+      $msgs_with_type = static::getSessionAndFlush() ?? [];
 
       foreach ($msgs_with_type as $type => $msgs) {
         if($type === static::DEBUG && !DEBUG){
