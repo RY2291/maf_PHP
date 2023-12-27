@@ -22,3 +22,7 @@ function redirect($path){
 function getUrl($path){
   return BASE_URL . $path;
 }
+
+function is_alnum($val){
+  return preg_match("/^[a-zA-Z0-9]+$/",$val);
+}
