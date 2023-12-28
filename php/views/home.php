@@ -5,3 +5,6 @@
 <div>
   <a href="<?php echo BASE_URL . 'register'?>">register</a>
 </div>
+<div>
+  <a href="<?php echo BASE_URL . 'logout'?>">logout</a>
+</div>

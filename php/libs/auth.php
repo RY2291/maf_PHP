@@ -88,4 +88,15 @@ class Auth{
     }
   }
 
+    public static function logout()
+    {
+      try {
+        UserModel::clearSession(); 
+      } catch (\Throwable $e) {
+        UserModel::clearSession();
+        Msg::push(Msg::DEBUG, $e->getMessage());
+      }
+
+      return true;
+    }
 }
