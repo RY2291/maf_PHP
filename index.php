@@ -19,10 +19,12 @@ require_once SOURCE_BASE . 'db/datasource.php';
 require_once SOURCE_BASE . 'db/user.query.php';
 
 use db\UserQuery;
+use lib\Auth;
+
 use function lib\route;
 
 session_start();
-
+Auth::checkSessionTime();
 try {
   require_once SOURCE_BASE . 'partials/header.php';
 

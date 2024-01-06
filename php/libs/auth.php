@@ -99,4 +99,31 @@ class Auth{
 
       return true;
     }
+
+    public static function checkSessionTime()
+    {
+      try {
+        $user = UserModel::getSession();
+        if(!$user){
+          return false;
+        }
+
+        $last_activity = isset($_SESSION['last_activity']) ? $_SESSION['last_activity'] : time();
+        $_SESSION['last_activity'] = time();
+        $logout_time = 30;
+
+        if(time() - $last_activity > $logout_time){
+          $path = BASE_URL . 'login';
+          UserModel::clearSession();
+          header("Location: {$path}");
+          Msg::push(Msg::INFO, 'セッションタイムアウト');
+          exit();
+        }
+      } catch (\Throwable $e) {
+        UserModel::clearSession();
+        Msg::push(Msg::DEBUG, $e->getMessage());
+      }
+
+      return true;
+    }
 }

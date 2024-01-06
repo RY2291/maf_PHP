@@ -10,8 +10,8 @@ abstract class AbstractModel{
 
 		if(empty(static::$SESSION_NAME)){
 			throw new \Exception('$SESSION_NAMEを設定してください');
-
 		}
+		// static::$SESSION_NAMEは継承先で参照
 		return $_SESSION[static::$SESSION_NAME] = $val;
 	}
 
