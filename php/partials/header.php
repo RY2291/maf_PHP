@@ -4,13 +4,6 @@ namespace partials;
 use lib\Auth;
 use lib\Msg;
 
-Msg::flush();
-if (Auth::isLogin()) {
-	echo 'ログイン中';
-} else {
-	echo 'ログインしていません';
-}
-
 function header(){
 ?>
 <!DOCTYPE html>
@@ -48,5 +41,11 @@ function header(){
 		</header>
 		<main class="container py-3">
 <?php
+Msg::flush();
+if (Auth::isLogin()) {
+	echo 'ログイン中';
+} else {
+	echo 'ログインしていません';
+}
 }
 ?>

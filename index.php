@@ -30,10 +30,9 @@ use lib\Auth;
 use function lib\route;
 
 session_start();
-// Auth::checkSessionTime();
+Auth::checkSessionTime();
 try {
   \partials\header();
-  var_export($_SESSION);
   $rpath = str_replace(BASE_URL, '', CURRENT_URI);
   $method = strtolower($_SERVER['REQUEST_METHOD']);
   
