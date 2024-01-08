@@ -24,6 +24,7 @@ require_once SOURCE_BASE . 'partials/footer.php';
 
 // View
 require_once SOURCE_BASE . 'views/login.php';
+require_once SOURCE_BASE . 'views/register.php';
 
 use lib\Auth;
 use function lib\route;
