@@ -18,23 +18,26 @@ require_once SOURCE_BASE . 'libs/message.php';
 require_once SOURCE_BASE . 'db/datasource.php';
 require_once SOURCE_BASE . 'db/user.query.php';
 
-use db\UserQuery;
-use lib\Auth;
+// partials
+require_once SOURCE_BASE . 'partials/header.php';
+require_once SOURCE_BASE . 'partials/footer.php';
 
+// View
+require_once SOURCE_BASE . 'views/login.php';
+
+use lib\Auth;
 use function lib\route;
 
 session_start();
-Auth::checkSessionTime();
+// Auth::checkSessionTime();
 try {
-  require_once SOURCE_BASE . 'partials/header.php';
-
-  // $result = UserQuery::fetchById('test');
-
+  \partials\header();
+  var_export($_SESSION);
   $rpath = str_replace(BASE_URL, '', CURRENT_URI);
   $method = strtolower($_SERVER['REQUEST_METHOD']);
   
   route($rpath, $method);
-  require_once SOURCE_BASE . 'partials/footer.php';
+  \partials\footer();
 
 } catch (Throwable $e) {
   die('<h1>Problem</h1>');

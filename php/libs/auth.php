@@ -110,7 +110,7 @@ class Auth{
 
         $last_activity = isset($_SESSION['last_activity']) ? $_SESSION['last_activity'] : time();
         $_SESSION['last_activity'] = time();
-        $logout_time = 30;
+        $logout_time = 60;
 
         if(time() - $last_activity > $logout_time){
           $path = BASE_URL . 'login';

@@ -30,7 +30,7 @@ class Msg extends AbstractModel
   {
     try {
       $msgs_with_type = static::getSessionAndFlush() ?? [];
-
+      var_export($msgs_with_type);
       foreach ($msgs_with_type as $type => $msgs) {
         if($type === static::DEBUG && !DEBUG){
           continue;

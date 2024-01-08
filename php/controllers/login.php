@@ -5,10 +5,11 @@ use lib\Auth;
 use lib\Msg;
 
 function get(){
-  require_once SOURCE_BASE . 'views/login.php';
+  \view\login\index();
 }
 
 function post(){
+  
   $id = getParam('id', '');
   $pwd = getParam('pwd', '');
 
