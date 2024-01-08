@@ -36,8 +36,10 @@ class Msg extends AbstractModel
           continue;
         }
 
+        $color = $type === static::INFO ? 'alert-primary' : 'alert-danger';
+
         foreach ($msgs as $msg) {
-          echo "<div>{$type}: {$msg}</div>";
+          echo "<div class='alert $color'>{$msg}</div>";
         }
       }
     } catch (Throwable $e) {
