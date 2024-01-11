@@ -2,6 +2,7 @@
 namespace lib;
 
 use db\UserQuery;
+use Error;
 use model\UserModel;
 
 class Auth{
@@ -110,7 +111,7 @@ class Auth{
 
         $last_activity = isset($_SESSION['last_activity']) ? $_SESSION['last_activity'] : time();
         $_SESSION['last_activity'] = time();
-        $logout_time = 60;
+        $logout_time = 3600;
 
         if(time() - $last_activity > $logout_time){
           $path = BASE_URL . 'login';
@@ -125,5 +126,13 @@ class Auth{
       }
 
       return true;
+    }
+
+    public static function requireLogin()
+    {
+      if(!Auth::isLogin()){
+        Msg::push(Msg::ERROR, 'ログインしてください');
+        redirect('login');
+      }
     }
 }

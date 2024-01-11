@@ -26,15 +26,18 @@ function header(){
 		<header class="container my-2">
 			<nav class="row align-items-center py-2">
 				<a href="<?php theUrl('/'); ?>" class="col-md d-flex align-items-center mb-3 mb-md-0">
-					<img width="50" class="mr-2" src="images/logo.svg" alt="みんなのアンケート　サイトロゴ">
+					<img width="50" class="mr-2" src="<?php echo BASE_IMAGE_PATH ?>logo.svg" alt="みんなのアンケート　サイトロゴ">
 					<span class="h2 font-weight-bold mb-0">みんなのアンケート</span>
 				</a>
 				<div class="col-md-auto">
-					<?php if (true) : ?>
+					<?php if (Auth::isLogin()) : ?>
+						<!-- ログインしているとき -->
+						<a href="<?php theUrl('topic/create'); ?>" class="btn btn-primary mr-2">投稿</a>
+						<a href="<?php theUrl('topic/archive'); ?>">過去の投稿</a>
+						<a href="<?php theUrl('logout'); ?>">ログアウト</a>
+					<?php else : ?>
 						<a href="<?php theUrl('register'); ?>" class="btn btn-primary mr-2">登録</a>
 						<a href="<?php theUrl('login'); ?>">ログイン</a>
-					<?php else : ?>
-						<!-- ログインしているとき -->
 					<?php endif; ?>
 				</div>
 			</nav>
