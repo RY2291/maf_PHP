@@ -20,6 +20,24 @@ class TopicQuery{
 
     return $result;
   }
+  
+  public static function fetchByPublishedTopic()
+  {
+    $db = new DataSource;
+    $sql = 'SELECT 
+                t.*
+            ,   u.nickname
+            FROM pollapp.topics t
+            INNER JOIN pollapp.users u ON
+                t.user_id = u.id
+            AND t.del_flg = 0
+            AND u.del_flg = 0
+            AND t.published = 1
+            ORDER BY t.id desc
+            ';
+    $result = $db->select($sql, [], DataSource::CLS, TopicModel::class);
+    return $result;
+  }
 
 //   public static function insert($user){
 //     $db = new DataSource;
