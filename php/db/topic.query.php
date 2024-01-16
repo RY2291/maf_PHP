@@ -64,4 +64,18 @@ class TopicQuery{
     ], DataSource::CLS, TopicModel::class);
     return $result;
   }
+
+  public static function incrementViewCount($topic)
+  {
+    
+    $db = new DataSource;
+    $sql = '
+          UPDATE topics
+          SET views = views + 1
+          WHERE id = :id;
+    ';
+    return $db->execute($sql, [
+      ':id' => $topic->id
+    ]);
+  }
 }
