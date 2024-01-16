@@ -3,11 +3,8 @@ namespace controller\topic\detail;
 
 use db\CommentQuery;
 use db\TopicQuery;
-use lib\Auth;
 use lib\Msg;
-use model\CommentModel;
 use model\TopicModel;
-use model\UserModel;
 
 function get()
 {
