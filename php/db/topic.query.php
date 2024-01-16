@@ -39,16 +39,29 @@ class TopicQuery{
     return $result;
   }
 
-//   public static function insert($user){
-//     $db = new DataSource;
-//     $sql = 'INSERT INTO users(id, pwd, nickname) VALUES(:id, :pwd, :nickname)';
-    
-//     $user->pwd = password_hash($user->pwd, PASSWORD_BCRYPT);
+  public static function fetchById($topic)
+  {
+    // if(!$topic->isValidateId){
+    //     return false;
+    // }
 
-//     return $db->execute($sql, [
-//       ':id' => $user->id,
-//       ':pwd' => $user->pwd,
-//       ':nickname' => $user->nickname,
-//     ]);
-//   }
+    $db = new DataSource;
+    $sql = 'SELECT 
+                t.*
+            ,   u.nickname
+            FROM pollapp.topics t
+            INNER JOIN pollapp.users u ON
+                t.user_id = u.id
+            WHERE
+                t.id = :id
+            AND t.del_flg = 0
+            AND u.del_flg = 0
+            AND t.published = 1
+            ORDER BY t.id desc
+            ';
+    $result = $db->selectOne($sql, [
+        ':id' => $topic->id
+    ], DataSource::CLS, TopicModel::class);
+    return $result;
+  }
 }
