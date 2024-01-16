@@ -1,7 +1,18 @@
-<h1>TOP</h1>
-<div>
-  <a href="<?php echo BASE_URL . 'login'?>">login</a>
-</div>
-<div>
-  <a href="<?php echo BASE_URL . 'register'?>">register</a>
-</div>
+<?php
+
+namespace view\home;
+
+function index($topics)
+{
+  $topic = array_shift($topics); 
+  \partials\topic_header_item($topic, true);
+?>
+  <ul class="container">
+    <?php
+    foreach ($topics as $topic) {
+      $url = getUrl('topic/detail?topic_id=' . $topic->id);
+      \partials\topic_list_item($topic, $url, true);
+    }
+    ?>
+  </ul>
+<?php } ?>
