@@ -22,6 +22,11 @@ class TopicModel extends AbstractModel{
     return true;
   }
 
+  public static function validateId($val)
+  {
+    return true;
+  }
+
 //   public static function validateId($val)
 //   {
 //     $res = true;

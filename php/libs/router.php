@@ -21,7 +21,6 @@ function route($rpath, $method){
 
     $rpath = str_replace('/', '\\', $rpath);
     $fn = "\\controller\\{$rpath}\\{$method}";
-  
     $fn();
   } catch (Throwable $e) {
     Msg::push(Msg::DEBUG, $e->getMessage());
