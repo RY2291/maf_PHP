@@ -1,5 +1,5 @@
 <?php 
-namespace controller\topic\edit;
+namespace controller\topic\create;
 
 use db\TopicQuery;
 use lib\Auth;
@@ -13,14 +13,12 @@ function get()
     Auth::requireLogin();
     
     $topic = new TopicModel;
-    $topic->id = getParam('topic_id', null, false);
+    $topic->id = -1;
+    $topic->title = '';
+    $topic->published = 1;
+
     
-    $user = UserModel::getSession();
-    Auth::requirePermission($topic->id, $user);
-    
-    $fetchedTopic = TopicQuery::fetchById($topic);
-    
-    \view\topic\edit\index($fetchedTopic, true);
+    \view\topic\edit\index($topic, false);
 }
 
 function post(){
@@ -32,20 +30,19 @@ function post(){
     $topic->published = getParam('published', null);
 
     $user = UserModel::getSession();
-    Auth::requirePermission($topic->id, $user);
 
     try {
-        $is_success = TopicQuery::update($topic);
+        $is_success = TopicQuery::insert($topic, $user);
     } catch (Throwable $e) {
         Msg::push(Msg::DEBUG, $e->getMessage());
         $is_success = false;
     }
 
     if($is_success){
-        Msg::push(Msg::INFO, 'トピックの更新に成功しました');
+        Msg::push(Msg::INFO, 'トピックの登録に成功しました');
         redirect('topic/archive');
     } else{
-        Msg::push(Msg::ERROR, 'トピックの更新に失敗しました');
+        Msg::push(Msg::ERROR, 'トピックの登録に失敗しました');
         redirect(GO_REFERER);
     }
 }
