@@ -12,6 +12,13 @@ function get()
 {
     Auth::requireLogin();
     
+    $topic = TopicModel::getSessionAndFlush();
+
+    if(!empty($topic)){
+        \view\topic\edit\index($topic, true);
+        return;
+    }
+    
     $topic = new TopicModel;
     $topic->id = getParam('topic_id', null, false);
     
@@ -19,8 +26,8 @@ function get()
     Auth::requirePermission($topic->id, $user);
     
     $fetchedTopic = TopicQuery::fetchById($topic);
-    
     \view\topic\edit\index($fetchedTopic, true);
+    
 }
 
 function post(){
@@ -46,6 +53,7 @@ function post(){
         redirect('topic/archive');
     } else{
         Msg::push(Msg::ERROR, 'トピックの更新に失敗しました');
+        TopicModel::setSession($topic);
         redirect(GO_REFERER);
     }
 }
