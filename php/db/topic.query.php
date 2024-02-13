@@ -4,7 +4,7 @@ namespace db;
 
 use db\DataSource;
 use model\TopicModel;
-
+use model\UserModel;
 class TopicQuery
 {
     public static function fetchByUserId($user)
@@ -100,6 +100,12 @@ class TopicQuery
 
     public static function update($topic)
     {
+        if(!($topic->isValidateId()
+          * $topic->isValidateTitle()
+          * $topic->isValidatePublished()
+          )){
+            return false;
+        }
         $db = new DataSource();
         $sql = 'UPDATE topics
                 SET
@@ -117,6 +123,13 @@ class TopicQuery
 
     public static function insert($topic, $user)
     {
+        if(!($user->validateId()
+          * $topic->isValidateTitle()
+          * $topic->isValidatePublished()
+          )){
+            return false;
+        }
+
         $db = new DataSource();
         $sql = 'INSERT INTO topics(
                     title
