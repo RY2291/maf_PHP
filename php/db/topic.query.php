@@ -5,6 +5,7 @@ namespace db;
 use db\DataSource;
 use model\TopicModel;
 use model\UserModel;
+
 class TopicQuery
 {
     public static function fetchByUserId($user)
@@ -100,10 +101,10 @@ class TopicQuery
 
     public static function update($topic)
     {
-        if(!($topic->isValidateId()
-          * $topic->isValidateTitle()
-          * $topic->isValidatePublished()
-          )){
+        if (!($topic->isValidateId()
+            * $topic->isValidateTitle()
+            * $topic->isValidatePublished()
+        )) {
             return false;
         }
         $db = new DataSource();
@@ -114,7 +115,7 @@ class TopicQuery
                 WHERE id = :id
                 ';
 
-        return $db->execute($sql,[
+        return $db->execute($sql, [
             ':published' => $topic->published,
             ':title' => $topic->title,
             ':id' => $topic->id
@@ -123,10 +124,10 @@ class TopicQuery
 
     public static function insert($topic, $user)
     {
-        if(!($user->validateId()
-          * $topic->isValidateTitle()
-          * $topic->isValidatePublished()
-          )){
+        if (!($user->validateId()
+            * $topic->isValidateTitle()
+            * $topic->isValidatePublished()
+        )) {
             return false;
         }
 
@@ -142,10 +143,30 @@ class TopicQuery
                 )
                 ';
 
-        return $db->execute($sql,[
+        return $db->execute($sql, [
             ':title' => $topic->title,
             ':published' => $topic->published,
             ':user_id' => $user->id
+        ]);
+    }
+
+    public static function incrementLikesOrDislikes($comment)
+    {
+        if (!($comment->isValidTopicId()
+            * $comment->isValidAgree()
+        )) {
+            return false;
+        }
+        $db = new DataSource();
+
+        if ($comment->agree) {
+            $sql = 'UPDATE topics SET likes = likes + 1 WHERE id = :id';
+        } else {
+            $sql = 'UPDATE topics SET dislikes = dislikes + 1 WHERE id = :id';
+        }
+
+        return $db->execute($sql, [
+            ':id' => $comment->topic_id
         ]);
     }
 }

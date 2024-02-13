@@ -34,16 +34,34 @@ class CommentQuery{
     return $result;
   }
 
-//   public static function insert($user){
-//     $db = new DataSource;
-//     $sql = 'INSERT INTO users(id, pwd, nickname) VALUES(:id, :pwd, :nickname)';
-    
-//     $user->pwd = password_hash($user->pwd, PASSWORD_BCRYPT);
+  public static function insert($comment)
+  {
+      if (!($comment->isValidTopicId()
+          * $comment->isValidBody()
+          * $comment->isValidAgree()
+      )) {
+          return false;
+      }
 
-//     return $db->execute($sql, [
-//       ':id' => $user->id,
-//       ':pwd' => $user->pwd,
-//       ':nickname' => $user->nickname,
-//     ]);
-//   }
+      $db = new DataSource();
+      $sql = 'INSERT INTO comments(
+                  topic_id
+              ,   agree
+              ,   body
+              ,   user_id
+              ) VALUES(
+                  :topic_id
+              ,   :agree
+              ,   :body
+              ,   :user_id
+              )
+              ';
+
+      return $db->execute($sql, [
+          ':topic_id' => $comment->topic_id,
+          ':agree' => $comment->agree,
+          ':body' => $comment->body,
+          ':user_id' => $comment->user_id
+      ]);
+  }
 }
