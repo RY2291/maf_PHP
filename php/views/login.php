@@ -12,11 +12,11 @@ function index(){
 		<form action="<?php echo CURRENT_URI; ?>" method="post">
 			<div class="form-group">
 				<label for="id">ユーザーID</label>
-				<input type="text" name="id" id="id" class="form-control">
+				<input type="text" name="id" id="id" class="form-control" required autofocus maxlength="10">
 			</div>
 			<div class="form-group">
 				<label for="pwd">パスワード</label>
-				<input type="password" name="pwd" id="pwd" class="form-control">
+				<input type="password" name="pwd" id="pwd" class="form-control" required minlength="4">
 			</div>
 			<div class="d-flex align-items-center justify-content-between">
 				<div>
