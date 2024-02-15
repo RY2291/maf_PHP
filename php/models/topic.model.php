@@ -7,7 +7,7 @@ use lib\Msg;
 
 class TopicModel extends AbstractModel
 {
-  public string $id;
+  public int $id;
   public string $title;
   public int $published;
   public int $views;
@@ -15,8 +15,7 @@ class TopicModel extends AbstractModel
   public int $dislikes;
   public string $user_id;
   public int $del_flg;
-  public string $nickname;
-
+  
   protected static $SESSION_NAME = '_topic';
 
   public function isValidateId()

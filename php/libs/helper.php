@@ -53,7 +53,6 @@ function escape($data)
 
 		return $data;
 	} else {
-
-		htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+		return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
 	}
 }

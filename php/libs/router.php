@@ -25,6 +25,6 @@ function route($rpath, $method){
   } catch (Throwable $e) {
     Msg::push(Msg::DEBUG, $e->getMessage());
     Msg::push(Msg::ERROR, 'ルートエラー');
-    require_once SOURCE_BASE . 'views/404.php';
+    redirect('404');
   }
 }
