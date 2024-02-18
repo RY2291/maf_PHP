@@ -29,7 +29,7 @@ function poll_char(){
         data = {
             labels: ['賛成', '反対'],
             datasets: [{
-                data: [2, 3],
+                data: [likes, dislikes],
                 backgroundColor:[
                     '#34d399',
                     '#f87171'

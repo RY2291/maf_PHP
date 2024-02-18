@@ -57,9 +57,9 @@ function topic_main($topic, $from_top_page)
 function comment_form($topic)
 { ?>
     <?php if (Auth::isLogin()) : ?>
-        <form action="<?php echo theUrl('topic/detail') ?>" method="post">
+        <form action="<?php echo theUrl("topic/detail?") ?>" method="post">
             <span class="h4">あなたは賛成？それとも反対？</span>
-            <input type="hidden" name="topic_id" value="3">
+            <input type="hidden" name="topic_id" value="<?php echo $topic->id ?>">
             <div class="form-group">
                 <textarea class="w-100 border-light" name="body" id="body" rows="5"></textarea>
             </div>
