@@ -34,6 +34,7 @@ require_once SOURCE_BASE . 'views/login.php';
 require_once SOURCE_BASE . 'views/register.php';
 require_once SOURCE_BASE . 'views/topic/archive.php';
 require_once SOURCE_BASE . 'views/topic/detail.php';
+require_once SOURCE_BASE . 'views/topic/edit.php';
 
 use lib\Auth;
 use function lib\route;
@@ -45,7 +46,7 @@ try {
   $parse_url = parse_url(CURRENT_URI);
   $rpath = str_replace(BASE_URL, '', $parse_url['path']);
   $method = strtolower($_SERVER['REQUEST_METHOD']);
-  
+
   route($rpath, $method);
   \partials\footer();
 

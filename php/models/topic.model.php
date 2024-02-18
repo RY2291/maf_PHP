@@ -1,11 +1,13 @@
-<?php 
+<?php
+
 namespace model;
 
 use model\abstractModel\AbstractModel;
 use lib\Msg;
 
-class TopicModel extends AbstractModel{
-  public string $id;
+class TopicModel extends AbstractModel
+{
+  public int $id;
   public string $title;
   public int $published;
   public int $views;
@@ -13,7 +15,6 @@ class TopicModel extends AbstractModel{
   public int $dislikes;
   public string $user_id;
   public int $del_flg;
-  public string $nickname;
   
   protected static $SESSION_NAME = '_topic';
 
@@ -22,75 +23,54 @@ class TopicModel extends AbstractModel{
     return true;
   }
 
-//   public static function validateId($val)
-//   {
-//     $res = true;
+  public static function validateId($val)
+  {
+    $res = true;
 
-//     if(empty($val)){
-//       Msg::push(Msg::ERROR, 'ユーザのIDを入力してくダサい');
-//       $res = false; 
-//     } else{
-      
-//       if(strlen($val) > 10){
-//         Msg::push(Msg::ERROR, 'ユーザのIDを10桁以下で入力してくダサい');
-//         $res = false; 
-//       }
-      
-//       if(!is_alnum($val)){
-//         Msg::push(Msg::ERROR, '半角英数字で入力してください');
-//         $res = false; 
-//       }
-//     }
+    if(empty($val) || !is_numeric($val)){
+      Msg::push(Msg::ERROR, 'パラメータが不正です');
+      $res = false;
+    }
+    return $res;
+  }
 
-//     return $res;
-//   }
+  public function isValidateTitle()
+  {
+    return static::ValidateTitle($this->title);
+  }
+  
+  public static function ValidateTitle($val)
+  {
+    $res = true;
 
-//   public static function validatePwd($val)
-//   {
-//     $res = true;
+    if(empty($val)){
+      Msg::push(Msg::ERROR, 'タイトルが不正です。');
+      $res = false;
+    }elseif(mb_strlen($val) > 30){
+      Msg::push(Msg::ERROR, 'タイトルの文字数は30文字いないで入力してください。');
+      $res = false;
+    }
+    
+    return $res;
+  }
 
-//     if (empty($val)) {
-//       Msg::push(Msg::ERROR, 'パスワードを入力してください。');
-//       $res = false;
-//     } else {
-//       if(strlen($val) < 4) {
-//         Msg::push(Msg::ERROR, 'パスワードは４桁以上で入力してください。');
-//         $res = false;
-//       }
+  public function isValidatePublished()
+  {
+    return static::ValidatePublished($this->published);
+  }
+  
+  public static function ValidatePublished($val)
+  {
+    $res = true;
 
-//       if(!is_alnum($val)) {
-//         Msg::push(Msg::ERROR, 'パスワードは半角英数字で入力してください。');
-//         $res = false;
-//       }
-//     }
+    if(!isset($val)){
+      Msg::push(Msg::ERROR, '値が不正です。');
+      $res = false;
+    }elseif(!($val === 0 || $val === 1)){
+      Msg::push(Msg::ERROR, 'ステータスが不正です。');
+      $res = false;
+    }
 
-//     return $res;
-//   }
-
-//   public function isValidPwd()
-//   {
-//     return static::validatePwd($this->pwd);
-//   }
-
-//   public static function validateNickname($val)
-//   {
-//     $res = true;
-
-//     if (empty($val)) {
-//       Msg::push(Msg::ERROR, 'ニックネームを入力してください。');
-//       $res = false;
-//     } else {
-//       if(mb_strlen($val) > 10) {
-//         Msg::push(Msg::ERROR, 'ニックネームは１０桁以下で入力してください。');
-//         $res = false;
-//       }
-//     }
-
-//     return $res;
-//   }
-
-//   public function isValidNickname()
-//   {
-//     return static::validateNickname($this->nickname);
-//   }
+    return $res;
+  }
 }

@@ -11,11 +11,10 @@ function topic_header_item($topic, $from_top_page)
             <!-- 左側 -->
             <?php chart($topic) ?>
         </div>
-        <div class="col my-5">
-            <!-- 右側 -->
-            <?php topic_main($topic, $from_top_page) ?>
-            <?php comment_form($topic) ?>
-
+        <div class=" col my-5">
+                <!-- 右側 -->
+                <?php topic_main($topic, $from_top_page) ?>
+                <?php comment_form($topic) ?>
         </div>
     </div>
 <?php }
@@ -23,11 +22,6 @@ function topic_header_item($topic, $from_top_page)
 function chart($topic)
 { ?>
     <canvas id="chart" width="400" height="400" data-likes="<?php echo $topic->likes ?>" data-dislikes="<?php echo $topic->dislikes ?>"></canvas>
-    <style>
-        #chart {
-            background-color: gray;
-        }
-    </style>
 <?php }
 
 function topic_main($topic, $from_top_page)
@@ -63,9 +57,9 @@ function topic_main($topic, $from_top_page)
 function comment_form($topic)
 { ?>
     <?php if (Auth::isLogin()) : ?>
-        <form action="<?php echo theUrl('topic/detail') ?>" method="post">
+        <form action="<?php echo theUrl("topic/detail?") ?>" method="post">
             <span class="h4">あなたは賛成？それとも反対？</span>
-            <input type="hidden" name="topic_id" value="3">
+            <input type="hidden" name="topic_id" value="<?php echo $topic->id ?>">
             <div class="form-group">
                 <textarea class="w-100 border-light" name="body" id="body" rows="5"></textarea>
             </div>

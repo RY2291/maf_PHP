@@ -4,7 +4,9 @@ namespace view\topic\detail;
 
 function index($topic, $comments)
 {
-    \partials\topic_header_item($topic, false);
+    $comments = escape($comments);
+    $topic = escape($topic);
+    \partials\topic_header_item($topic, true);
 ?>
     <ul class="list-unstyled">
         <?php foreach($comments as $comment) : ?>
