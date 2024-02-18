@@ -11,11 +11,10 @@ function topic_header_item($topic, $from_top_page)
             <!-- 左側 -->
             <?php chart($topic) ?>
         </div>
-        <div class="col my-5">
-            <!-- 右側 -->
-            <?php topic_main($topic, $from_top_page) ?>
-            <?php comment_form($topic) ?>
-
+        <div class=" col my-5">
+                <!-- 右側 -->
+                <?php topic_main($topic, $from_top_page) ?>
+                <?php comment_form($topic) ?>
         </div>
     </div>
 <?php }
@@ -23,11 +22,6 @@ function topic_header_item($topic, $from_top_page)
 function chart($topic)
 { ?>
     <canvas id="chart" width="400" height="400" data-likes="<?php echo $topic->likes ?>" data-dislikes="<?php echo $topic->dislikes ?>"></canvas>
-    <style>
-        #chart {
-            background-color: gray;
-        }
-    </style>
 <?php }
 
 function topic_main($topic, $from_top_page)
